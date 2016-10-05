@@ -21,13 +21,13 @@ if __name__ == '__main__':
             path = os.path.join(dir, filename)
             file_names.append(path)
 
+    #
     duplicates = set()
     for el1 in file_names:
         for el2 in file_names:
-            if el1 != el2:
-                if are_files_duplicates(el1, el2):
-                    duplicates.add(el1)
-                    duplicates.add(el2)
+            if el1 != el2 and are_files_duplicates(el1, el2):
+                duplicates.add(el1)
+                duplicates.add(el2)
 
     for el in (sorted(duplicates)):
         print(el)
