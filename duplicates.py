@@ -4,6 +4,12 @@ import sys
 import argparse
 
 
+def load_win_unicode_console():
+    if sys.platform == 'win32':
+        import win_unicode_console
+        win_unicode_console.enable()
+
+
 def get_named_argument(arg_name: str) -> str:
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser()
@@ -29,9 +35,8 @@ def find_duplicates(root_dir: str):
 
 
 if __name__ == '__main__':
-    if sys.platform == 'win32':
-        import win_unicode_console
-        win_unicode_console.enable()
+
+    load_win_unicode_console()
 
     root_dir = get_named_argument('dir')
 
