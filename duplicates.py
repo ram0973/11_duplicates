@@ -17,7 +17,6 @@ def are_files_duplicates(file_path1, file_path_2):
             return True
 
 if __name__ == '__main__':
-    # ошибка, нужен именованный параметр
     if len(sys.argv) > 1:
         parser = create_parser()
         root_dir = parser.parse_args(sys.argv[1:]).dir
