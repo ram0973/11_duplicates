@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collections import defaultdict
 import os
 import sys
 import argparse
@@ -21,15 +22,12 @@ def get_named_argument(arg_name: str) -> str:
 
 
 def find_duplicates(root_dir: str):
-    duplicates = {}
+    duplicates = defaultdict(list)
     for dir, subdirs, files in os.walk(root_dir):
         for filename in files:
             path = os.path.join(dir, filename)
             size = os.path.getsize(path)
-            if filename+str(size) not in duplicates:
-                duplicates[filename+str(size)] = [path]
-            else:
-                duplicates[filename+str(size)].append(path)
+            duplicates[filename+str(size)].append(path)
     duplicates = list(filter(lambda x: len(x) > 1, duplicates.values()))
     return sorted([item for sublist in duplicates for item in sublist])
 
