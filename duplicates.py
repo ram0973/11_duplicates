@@ -53,7 +53,6 @@ if __name__ == '__main__':
         )
         exit(1)
 
-
     print('\n%sСписок дубликатов в папке %s : %s' %
           (Fore.GREEN+Style.BRIGHT, folder_path, Style.RESET_ALL))
 
