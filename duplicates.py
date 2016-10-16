@@ -3,19 +3,15 @@ from collections import defaultdict
 import os
 import sys
 import argparse
-from colorama import Fore, Style
 
 
 def load_win_unicode_console():
     """
     Включаем правильное отображение unicode в консоли под MS Windows
-    и раскрашивание символов
     """
     if sys.platform == 'win32':
         import win_unicode_console
         win_unicode_console.enable()
-        from colorama import init
-        init()  # colorama
 
 
 def get_folder_path_argument():
@@ -48,13 +44,10 @@ if __name__ == '__main__':
     try:
         duplicates_list = find_duplicates_in(folder_path)
     except OSError as error:
-        print('%sОшибка: %s в файле: %s' % (
-            Fore.RED+Style.BRIGHT, error.strerror, error.filename)
-        )
+        print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
 
-    print('\n%sСписок дубликатов в папке %s : %s' %
-          (Fore.GREEN+Style.BRIGHT, folder_path, Style.RESET_ALL))
+    print('\nСписок дубликатов в папке %s' % folder_path)
 
     for el in duplicates_list:
         print(el)
