@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 from collections import defaultdict
 import os
 import sys
@@ -6,39 +6,45 @@ import argparse
 
 
 def load_win_unicode_console():
+    """
+    Включаем правильное отображение unicode в консоли под MS Windows
+    и раскрашивание символов
+    """
     if sys.platform == 'win32':
         import win_unicode_console
         win_unicode_console.enable()
+        from colorama import init
+        init()  # colorama
 
 
-def get_named_argument(arg_name: str) -> str:
-    if len(sys.argv) > 1:
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--' + arg_name)
-        return getattr(parser.parse_args(sys.argv[1:]), arg_name)
+def get_folder_path_argument():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dir', help='Введите путь к папке')
+    if parser.parse_args().dir:
+        return parser.parse_args().dir
     else:
-        print('Введите параметр в формате --%s Значение' % arg_name)
+        parser.print_help()
         exit(1)
 
 
-def find_duplicates(root_dir: str):
+def find_duplicates_in(folder: str):
     duplicates = defaultdict(list)
-    for dir, subdirs, files in os.walk(root_dir):
+    for directory, sub_dirs, files in os.walk(folder):
         for filename in files:
-            path = os.path.join(dir, filename)
+            path = os.path.join(directory, filename)
             size = os.path.getsize(path)
             duplicates[filename+str(size)].append(path)
     duplicates = list(filter(lambda x: len(x) > 1, duplicates.values()))
-    return sorted([item for sublist in duplicates for item in sublist])
+    return sorted([item for sub_list in duplicates for item in sub_list])
 
 
 if __name__ == '__main__':
 
     load_win_unicode_console()
 
-    root_dir = get_named_argument('dir')
+    folder_path = get_folder_path_argument()
 
-    duplicates = find_duplicates(root_dir)
+    duplicates_list = find_duplicates_in(folder_path)
 
-    for el in duplicates:
+    for el in duplicates_list:
         print(el)
