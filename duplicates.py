@@ -27,10 +27,10 @@ def get_folder_path_argument():
 def find_duplicates_in(folder):
     duplicates = defaultdict(list)
     for directory, sub_dirs, files in os.walk(folder):
-        for filename in files:
-            path = os.path.join(directory, filename)
+        for file_name in files:
+            path = os.path.join(directory, file_name)
             size = os.path.getsize(path)
-            duplicates[filename+str(size)].append(path)
+            duplicates[file_name+str(size)].append(path)
     duplicates = list(filter(lambda x: len(x) > 1, duplicates.values()))
     return sorted([item for sub_list in duplicates for item in sub_list])
 
