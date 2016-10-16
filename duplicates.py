@@ -45,7 +45,14 @@ if __name__ == '__main__':
 
     folder_path = get_folder_path_argument()
 
-    duplicates_list = find_duplicates_in(folder_path)
+    try:
+        duplicates_list = find_duplicates_in(folder_path)
+    except OSError as error:
+        print('%sОшибка: %s в файле: %s' % (
+            Fore.RED+Style.BRIGHT, error.strerror, error.filename)
+        )
+        exit(1)
+
 
     print('\n%sСписок дубликатов в папке %s : %s' %
           (Fore.GREEN+Style.BRIGHT, folder_path, Style.RESET_ALL))
