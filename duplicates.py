@@ -24,7 +24,7 @@ def get_folder_path_argument():
         exit(1)
 
 
-def find_duplicates_in(folder: str):
+def find_duplicates_in(folder):
     duplicates = defaultdict(list)
     for directory, sub_dirs, files in os.walk(folder):
         for filename in files:
