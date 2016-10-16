@@ -14,16 +14,6 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def get_folder_path_argument():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--dir', help='Введите путь к папке')
-    if parser.parse_args().dir:
-        return parser.parse_args().dir
-    else:
-        parser.print_help()
-        exit(1)
-
-
 def find_duplicates_in(folder):
     duplicates = defaultdict(list)
     for directory, sub_dirs, files in os.walk(folder):
@@ -39,7 +29,13 @@ if __name__ == '__main__':
 
     load_win_unicode_console()
 
-    folder_path = get_folder_path_argument()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dir', help='Введите путь к папке')
+    folder_path = parser.parse_args().dir
+
+    if not folder_path:
+        parser.print_help()
+        exit(1)
 
     try:
         duplicates_list = find_duplicates_in(folder_path)
