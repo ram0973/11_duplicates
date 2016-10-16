@@ -3,6 +3,7 @@ from collections import defaultdict
 import os
 import sys
 import argparse
+from colorama import Fore, Style
 
 
 def load_win_unicode_console():
@@ -45,6 +46,9 @@ if __name__ == '__main__':
     folder_path = get_folder_path_argument()
 
     duplicates_list = find_duplicates_in(folder_path)
+
+    print('\n%sСписок дубликатов в папке %s : %s' %
+          (Fore.GREEN+Style.BRIGHT, folder_path, Style.RESET_ALL))
 
     for el in duplicates_list:
         print(el)
