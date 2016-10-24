@@ -15,6 +15,11 @@ def load_win_unicode_console():
 
 
 def find_duplicates_in(folder):
+    """
+    Поиск дубликатов файлов в папке. Дубликатами считаются файлы одного размера и названия
+    :param folder:
+    :return:
+    """
     duplicates = defaultdict(list)
     for directory, sub_dirs, files in os.walk(folder):
         for file_name in files:
@@ -38,12 +43,12 @@ if __name__ == '__main__':
         exit(1)
 
     try:
-        duplicates_list = find_duplicates_in(folder_path)
+        duplicate_files = find_duplicates_in(folder_path)
     except OSError as error:
         print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
 
     print('\nСписок дубликатов в папке %s' % folder_path)
 
-    for el in duplicates_list:
-        print(el)
+    for duplicate_file in duplicate_files:
+        print(duplicate_file)
