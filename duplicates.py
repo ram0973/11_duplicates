@@ -14,7 +14,7 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def find_duplicates_in(folder) -> list:
+def find_duplicates_in(folder: str) -> list:
     """
     Поиск дубликатов файлов в папке.
     Дубликатами считаются файлы одного размера и названия
