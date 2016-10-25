@@ -14,11 +14,12 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def find_duplicates_in(folder):
+def find_duplicates_in(folder) -> list:
     """
-    Поиск дубликатов файлов в папке. Дубликатами считаются файлы одного размера и названия
-    :param folder:
-    :return:
+    Поиск дубликатов файлов в папке.
+    Дубликатами считаются файлы одного размера и названия
+    :param folder: путь к папке
+    :return: список с полными именами файлов - дубликатов
     """
     duplicates = defaultdict(list)
     for directory, sub_dirs, files in os.walk(folder):
