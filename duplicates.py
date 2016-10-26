@@ -5,7 +5,7 @@ import sys
 import argparse
 
 
-def load_win_unicode_console():
+def enable_win_unicode_console():
     """
     Включаем правильное отображение unicode в консоли под MS Windows
     """
@@ -33,7 +33,7 @@ def find_duplicates_in(folder: str) -> list:
 
 if __name__ == '__main__':
 
-    load_win_unicode_console()
+    enable_win_unicode_console()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', help='Введите путь к папке')
