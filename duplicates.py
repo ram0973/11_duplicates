@@ -3,6 +3,7 @@ from collections import defaultdict
 import os
 import sys
 import argparse
+from contextlib import suppress
 
 
 def enable_win_unicode_console():
@@ -22,13 +23,20 @@ def find_duplicates_in(folder: str) -> list:
     :return: список с полными именами файлов - дубликатов
     """
     duplicates = defaultdict(list)
-    for directory, sub_dirs, files in os.walk(folder):
-        for file_name in files:
-            path = os.path.join(directory, file_name)
-            size = os.path.getsize(path)
-            duplicates[file_name+str(size)].append(path)
+
+    #  если в огромной папке система не может найти 1+ файл, который сама же и
+    #  видит в списке файлов, но не находит из-за длинного имени, пропустим их
+    #  ведь нам кровь из носу нужны дубликаты
+    #  но как тут ругнуться на этот файл, я не знаю...
+    with suppress(FileNotFoundError):
+        for directory, sub_dirs, files in os.walk(folder):
+            for file_name in files:
+                path = os.path.join(directory, file_name)
+                size = os.path.getsize(path)
+                duplicates[file_name+str(size)].append(path)
+
     duplicates = list(filter(lambda x: len(x) > 1, duplicates.values()))
-    return sorted([item for sub_list in duplicates for item in sub_list])
+    return [item for sub_list in duplicates for item in sub_list]
 
 
 if __name__ == '__main__':
