@@ -38,6 +38,7 @@ def find_duplicates_in(folder: str) -> list:
 
     duplicates = list(filter(lambda x: len(x) > 1, duplicates.values()))
     return [item for sub_list in duplicates for item in sub_list]
+    #  можно и return itertools.chain.from_iterable(duplicates)
 
 
 if __name__ == '__main__':
