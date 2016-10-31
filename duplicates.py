@@ -24,11 +24,7 @@ def find_duplicates_in(folder: str) -> list:
     """
     duplicates = defaultdict(list)
 
-    #  если в огромной папке система не может найти 1+ файл, который сама же и
-    #  видит в списке файлов, но не находит из-за длинного имени, пропустим их
-    #  ведь нам кровь из носу нужны дубликаты
-    #  но как тут ругнуться на этот файл, я не знаю...
-
+    #  система иногда не может найти файлы из-за длинного имени
     with suppress(FileNotFoundError):
         for directory, sub_dirs, files in os.walk(folder):
             for file_name in files:
